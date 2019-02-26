@@ -38,10 +38,10 @@ class UserController < ApplicationController
     @user = User.find_by_slug(params[:slug])
     if !@user.nil?
       erb :'/users/user_tweets'
-    else 
+    else
       redirect to '/login'
     end
-  end      
+  end
 
   get '/logout' do
     if Helpers.is_logged_in?(session)
