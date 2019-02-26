@@ -8,14 +8,14 @@ class TweetController < ApplicationController
      @user = Helpers.current_user(session)
      erb :"/tweets/tweets"
    end
- 
+
    get '/tweets/new' do
      if !Helpers.is_logged_in?(session)
        redirect to '/login'
      end
      erb :"/tweets/create_tweet"
    end
- 
+
    post '/tweets' do
      user = Helpers.current_user(session)
      if params["content"].empty?
@@ -23,10 +23,10 @@ class TweetController < ApplicationController
        redirect to '/tweets/new'
      end
      tweet = Tweet.create(:content => params["content"], :user_id => user.id)
- 
+
      redirect to '/tweets'
    end
- 
+
    get '/tweets/:id' do
      if !Helpers.is_logged_in?(session)
        redirect to '/login'
@@ -34,7 +34,7 @@ class TweetController < ApplicationController
      @tweet = Tweet.find(params[:id])
      erb :"tweets/show_tweet"
    end
- 
+
    get '/tweets/:id/edit' do
      if !Helpers.is_logged_in?(session)
        redirect to '/login'
@@ -46,7 +46,7 @@ class TweetController < ApplicationController
      end
      erb :"tweets/edit_tweet"
    end
- 
+
    patch '/tweets/:id' do
      tweet = Tweet.find(params[:id])
      if params["content"].empty?
@@ -55,10 +55,10 @@ class TweetController < ApplicationController
      end
      tweet.update(:content => params["content"])
      tweet.save
- 
+
      redirect to "/tweets/#{tweet.id}"
    end
- 
+
    post '/tweets/:id/delete' do
      if !Helpers.is_logged_in?(session)
        redirect to '/login'
@@ -71,13 +71,13 @@ class TweetController < ApplicationController
      @tweet.delete
      redirect to '/tweets'
    end
- 
+
    get '/users/:slug' do
      slug = params[:slug]
      @user = User.find_by_slug(slug)
      erb :"users/show"
    end
- 
+
    get '/logout' do
      if Helpers.is_logged_in?(session)
        session.clear
@@ -86,6 +86,5 @@ class TweetController < ApplicationController
        redirect to '/'
      end
    end
- 
- end
 
+ end
