@@ -41,3 +41,4 @@ class UserController < ApplicationController
       redirect to '/login'
     end
   end
+end
